@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>💧 WaterSense</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" type="image/png" href="water.jpg">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">💧 WaterSense</div>
+      <nav>
+        <a href="#status">สถานะ</a>
+        <a href="#map">แผนที่</a>
+        <a href="#trend">แนวโน้ม</a>
+        <a href="#alerts">การแจ้งเตือน</a>
+        <a href="#weather">ฝน/พยากรณ์</a>
+        <a href="#about">เกี่ยวกับระบบ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="status" class="card">
+      <h1>แดชบอร์ดระดับน้ำ</h1>
+      <div class="stats">
+        <div class="stat"><div class="k" id="stat-stations">–</div><div class="l">จุดตรวจวัด</div></div>
+        <div class="stat"><div class="k" id="stat-online">–</div><div class="l">ออนไลน์</div></div>
+        <div class="stat"><div class="k" id="stat-alerts">–</div><div class="l">แจ้งเตือนล่าสุด (24 ชม.)</div></div>
+        <div class="stat"><div class="k" id="stat-updated">—</div><div class="l">อัปเดตล่าสุด</div></div>
+      </div>
+    </section>
+
+    <section id="map" class="card">
+      <h2>แผนที่สถานี</h2>
+      <div class="map" id="map-canvas"></div>
+      <div class="legend">
+        <span class="dot ok"></span> ปกติ
+        <span class="dot warn"></span> เฝ้าระวัง
+        <span class="dot alert"></span> แจ้งเตือน
+      </div>
+    </section>
+
+    <section id="trend" class="card">
+      <h2>แนวโน้มระดับน้ำ</h2>
+      <canvas id="trend-canvas" width="1024" height="320"></canvas>
+    </section>
+
+    <section id="alerts" class="card">
+      <h2>การแจ้งเตือนล่าสุด</h2>
+      <ul id="alert-list" class="alerts"></ul>
+    </section>
+
+    <section id="weather" class="card">
+      <h2>พยากรณ์อากาศ (TMD)</h2>
+      <div id="weather" class="weather-list"></div>
+    </section>
+
+    <section id="about" class="card">
+      <h2>เกี่ยวกับระบบ WaterSense</h2>
+      <p>ตรวจวัดระดับน้ำเรียลไทม์ พร้อมแจ้งเตือนและพยากรณ์อากาศจาก TMD</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div class="foot">
+      <div>© WaterSense By Jakkrit</div>
+      <div class="small muted">ข้อมูลจาก RID & TMD</div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
