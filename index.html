@@ -3,39 +3,57 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>💧 WaterSense</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="water.jpg">
+  <title>WaterSense</title>
+  <meta name="description" content="ระบบ WaterSense: เฝ้าระวังระดับน้ำ แจ้งเตือน และแผนภาพแนวโน้ม (ข้อมูลจากกรมชลประทาน)">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" type="image/png" href="Water.jpg">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="wrap">
       <div class="brand">💧 WaterSense</div>
-      <nav>
+      <nav aria-label="เมนูหลัก">
         <a href="#status">สถานะ</a>
         <a href="#map">แผนที่</a>
         <a href="#trend">แนวโน้ม</a>
         <a href="#alerts">การแจ้งเตือน</a>
-        <a href="#weather">ฝน/พยากรณ์</a>
         <a href="#about">เกี่ยวกับระบบ</a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap" role="main">
     <section id="status" class="card">
       <h1>แดชบอร์ดระดับน้ำ</h1>
+      <p class="muted">
+        <strong>WaterSense</strong> — ข้อมูลเรียลไทม์จาก <strong>กรมชลประทาน</strong>, 
+        อัปเดตทุก <code>5 วินาที</code>.  
+        เกณฑ์แจ้งเตือน: <code>ระดับน้ำ ≥ 1.20 m</code> หรือเพิ่มขึ้นรวดเร็ว <code>Δ ≥ 0.15 m/5s</code>.
+      </p>
       <div class="stats">
-        <div class="stat"><div class="k" id="stat-stations">–</div><div class="l">จุดตรวจวัด</div></div>
-        <div class="stat"><div class="k" id="stat-online">–</div><div class="l">ออนไลน์</div></div>
-        <div class="stat"><div class="k" id="stat-alerts">–</div><div class="l">แจ้งเตือนล่าสุด (24 ชม.)</div></div>
-        <div class="stat"><div class="k" id="stat-updated">—</div><div class="l">อัปเดตล่าสุด</div></div>
+        <div class="stat">
+          <div class="k" id="stat-stations">–</div>
+          <div class="l">จุดตรวจวัด</div>
+        </div>
+        <div class="stat">
+          <div class="k" id="stat-online">-</div>
+          <div class="l">ออนไลน์</div>
+        </div>
+        <div class="stat">
+          <div class="k" id="stat-alerts">–</div>
+          <div class="l">แจ้งเตือนล่าสุด (24 ชม.)</div>
+        </div>
+        <div class="stat">
+          <div class="k" id="stat-updated">—</div>
+          <div class="l">อัปเดตล่าสุด</div>
+        </div>
       </div>
     </section>
 
     <section id="map" class="card">
-      <h2>แผนที่สถานี</h2>
-      <div class="map" id="map-canvas"></div>
+      <h2>แผนที่จุดตรวจวัด</h2>
+      <p class="muted">ข้อมูลตำแหน่งสถานีจากกรมชลประทาน</p>
+      <div class="map" id="map-canvas" aria-label="แผนที่แสดงตำแหน่งสถานี"></div>
       <div class="legend">
         <span class="dot ok"></span> ปกติ
         <span class="dot warn"></span> เฝ้าระวัง
@@ -44,33 +62,39 @@
     </section>
 
     <section id="trend" class="card">
-      <h2>แนวโน้มระดับน้ำ</h2>
+      <h2>แนวโน้มระดับน้ำ (5 นาทีล่าสุด)</h2>
       <canvas id="trend-canvas" width="1024" height="320"></canvas>
+      <div class="note">ข้อมูลจากกรมชลประทาน อัปเดตแบบเรียลไทม์</div>
     </section>
 
     <section id="alerts" class="card">
       <h2>การแจ้งเตือนล่าสุด</h2>
       <ul id="alert-list" class="alerts"></ul>
-    </section>
-
-    <section id="weather" class="card">
-      <h2>พยากรณ์อากาศ (TMD)</h2>
-      <div id="weather" class="weather-list"></div>
+      <details class="note">
+        <summary><strong>เกณฑ์การแจ้งเตือน</strong></summary>
+        <ul>
+          <li>ระดับน้ำ &ge; <strong>1.20 m</strong> → <em>Alert</em></li>
+          <li>เพิ่มขึ้นรวดเร็วใน 5 วิ &ge; <strong>0.15 m</strong> → <em>Watch</em></li>
+        </ul>
+      </details>
     </section>
 
     <section id="about" class="card">
       <h2>เกี่ยวกับระบบ WaterSense</h2>
-      <p>ตรวจวัดระดับน้ำเรียลไทม์ พร้อมแจ้งเตือนและพยากรณ์อากาศจาก TMD</p>
+      <p>
+        ระบบเฝ้าระวังระดับน้ำ เชื่อมต่อ API กรมชลประทาน,
+        แสดงผลแบบเรียลไทม์ และแจ้งเตือนเมื่อระดับน้ำเกินเกณฑ์
+      </p>
     </section>
   </main>
 
   <footer class="wrap">
     <div class="foot">
       <div>© WaterSense By Jakkrit</div>
-      <div class="small muted">ข้อมูลจาก RID & TMD</div>
+      <div class="small muted">ที่มา: กรมชลประทาน (RID API)</div>
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="assets/app.js"></script>
 </body>
 </html>
